@@ -1,38 +1,59 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { AppRoutingModule } from './app-routing.module';
-import { HttpService } from './http.service';
-import { CarShopingService } from './car-shoping.service';
-import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
+import { FormsModule } from '@angular/forms';
+
+//FIREBASE
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+
+//Services
+import { DataService } from './data.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { DashComponent } from './dash/dash.component';
-import { MenubarComponent } from './menubar/menubar.component';
-import { CatalogoComponent } from './catalogo/catalogo.component';
-import { DetalleitemComponent } from './detalleitem/detalleitem.component';
-import { CarritoComponent } from './carrito/carrito.component';
+
+
+//Routes
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './home/navbar/navbar.component';
+import { ProductsCatalogComponent } from './home/products-catalog/products-catalog.component';
+import { SearchFilterPipe } from './search-filter.pipe';
+import { ProductComponent } from './home/product/product.component';
+import { ShoppingCartComponent } from './home/shopping-cart/shopping-cart.component';
+
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyAFbFI6a_ni6nolqPOtAPSdSrXOnRXhzRs",
+  authDomain: "online-store-nextu.firebaseapp.com",
+  databaseURL: "https://online-store-nextu.firebaseio.com",
+  storageBucket: "online-store-nextu.appspot.com",
+  messagingSenderId: "912921011659"
+};
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashComponent,
-    MenubarComponent,
-    CatalogoComponent,
-    DetalleitemComponent,
-    CarritoComponent
+    HomeComponent,
+    NavbarComponent,
+    ProductsCatalogComponent,
+    SearchFilterPipe,
+    ProductComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpModule,
+    FormsModule,
     AppRoutingModule,
-    Ng2FilterPipeModule
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
   ],
-  providers: [HttpService, CarShopingService],
+  providers: [AngularFireDatabase,AngularFireAuth, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

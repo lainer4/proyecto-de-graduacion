@@ -1,29 +1,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { DashComponent } from './dash/dash.component';
-import { CatalogoComponent } from './catalogo/catalogo.component';
-import { DetalleitemComponent } from './detalleitem/detalleitem.component';
-import { MenubarComponent } from './menubar/menubar.component';
-import { CarritoComponent } from './carrito/carrito.component';
+import { HomeComponent } from './home/home.component';
+import { ProductComponent } from './home/product/product.component';
+import { ShoppingCartComponent } from './home/shopping-cart/shopping-cart.component';
+import { ProductsCatalogComponent } from './home/products-catalog/products-catalog.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'dash', component: DashComponent,
-    children: [
-      { path: '', redirectTo: 'catalogo', pathMatch: 'full' },
-      { path: 'catalogo', component: CatalogoComponent },
-      { path: 'detalleitem', component: DetalleitemComponent },
-      { path: 'carrito', component: CarritoComponent },
-      { path: 'menuBar', component: MenubarComponent }
-    ]
-  }
-];
-
+   {path: '', component: LoginComponent},
+   {path: 'home', component: HomeComponent, children: [
+     {path: '', redirectTo: 'products-catalog', pathMatch: 'full'},
+     {path: 'products-catalog', component: ProductsCatalogComponent},
+     {path: 'shopping-cart', component: ShoppingCartComponent},
+     {path: 'product/:index', component: ProductComponent}
+   ]}
+]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: []
 })
 export class AppRoutingModule { }
+
+export const app_routing = RouterModule.forRoot(routes, {useHash:true});
